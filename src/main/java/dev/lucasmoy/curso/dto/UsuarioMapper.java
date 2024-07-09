@@ -4,6 +4,11 @@ import dev.lucasmoy.curso.model.Usuario;
 
 public class UsuarioMapper {
 
+    private UsuarioMapper() {
+        throw new IllegalStateException("Utility class");
+    }
+
+
     public static UsuarioDto toUsuarioDto(Usuario usuario){
         return new UsuarioDto(
                 usuario.getNombre(),

@@ -1,5 +1,7 @@
 package dev.lucasmoy.curso.service;
 
+import dev.lucasmoy.curso.dto.UsuarioDto;
+import dev.lucasmoy.curso.dto.UsuarioMapper;
 import dev.lucasmoy.curso.exception.UserNotFoundException;
 import dev.lucasmoy.curso.model.Usuario;
 import dev.lucasmoy.curso.repository.UsuarioRepository;
@@ -7,19 +9,20 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
-import java.util.Optional;
 
 @Service
 @RequiredArgsConstructor
 public class UsuarioServiceImpl implements UsuarioService {
 
+    private static final String NOT_FOUND_MESSAGE = "User not found with id: ";
     private final UsuarioRepository usuarioRepository;
+
 
 
     @Override
     public Usuario findUsuarioById(Long id) {
         return usuarioRepository.findById(id)
-                .orElseThrow(() -> new UserNotFoundException("User not found with id: " + id));
+                .orElseThrow(() -> new UserNotFoundException(NOT_FOUND_MESSAGE + id));
     }
 
     @Override
@@ -28,8 +31,10 @@ public class UsuarioServiceImpl implements UsuarioService {
     }
 
     @Override
-    public Usuario crearUsuario(Usuario usuario) {
-        return usuarioRepository.save(usuario);
+    public UsuarioDto crearUsuario(UsuarioDto usuarioDto) {
+        Usuario usuarioAGuardar = UsuarioMapper.toUsuario(usuarioDto);
+        usuarioRepository.save(usuarioAGuardar);
+        return usuarioDto;
     }
 
     @Override
@@ -37,7 +42,7 @@ public class UsuarioServiceImpl implements UsuarioService {
         if (usuarioRepository.existsById(id)){
             usuarioRepository.deleteById(id);
         }else{
-            throw new UserNotFoundException("User not found with id: " + id);
+            throw new UserNotFoundException(NOT_FOUND_MESSAGE + id);
         }
     }
 
@@ -47,6 +52,6 @@ public class UsuarioServiceImpl implements UsuarioService {
             usuarioUpdated.setId(id);
             return usuarioRepository.save(usuarioUpdated);
         }
-        throw new UserNotFoundException("User not found with id: " + id);
+        throw new UserNotFoundException(NOT_FOUND_MESSAGE + id);
     }
 }
