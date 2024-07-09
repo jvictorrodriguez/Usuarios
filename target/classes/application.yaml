@@ -1,0 +1,17 @@
+# Configuraci�n de JPA y Hibernate
+spring:
+  jpa:
+    hibernate:
+      ddl-auto: update
+    show-sql: true
+
+  # Configuraci�n de la base de datos
+  datasource:
+    url: jdbc:mysql://localhost:3306/mydatabase?createDatabaseIfNotExist=true
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+
+# Configuraci�n del servidor
+server:
+  port: 8081
