@@ -5,7 +5,9 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
 
-public record UsuarioDto(
+public record UserDTO(
+        Long id,
+
         @NotBlank(message = "El nombre no puede estar en blanco")
         @Size(max = 50, message = "El nombre no puede tener más de 50 caracteres")
         String nombre,

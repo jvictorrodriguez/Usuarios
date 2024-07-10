@@ -11,7 +11,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor
 @AllArgsConstructor
-public class Usuario {
+public class User {
     @Id
     @GeneratedValue
     private Long id;
@@ -21,7 +21,7 @@ public class Usuario {
     private String telefono;
     private String password;
 
-    public Usuario(String nombre, String apellidos, String email, String telefono, String password) {
+    public User(String nombre, String apellidos, String email, String telefono, String password) {
         this.nombre = nombre;
         this.apellidos = apellidos;
         this.email = email;
